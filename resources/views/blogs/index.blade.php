@@ -13,8 +13,9 @@
         @forelse($blogs as $blog)
             <div class="bg-white shadow rounded-lg p-6">
                 <h2 class="text-xl font-semibold">{{ $blog->title }}</h2>
+                <p class="text-gray-500 text-sm">by {{ $blog->user->name }}</p>
+                <p class="text-sm text-gray-500 mb-2">Category: {{ $blog->category ?? 'Uncategorized' }}</p>
                 <p class="text-gray-700 mt-2">{{ Str::limit($blog->content, 150) }}</p>
-                
                 @if($blog->image_path)
                     <img src="{{ asset('storage/' . $blog->image_path) }}" 
                          alt="Post Image" 
@@ -22,20 +23,23 @@
                 @endif
 
                 <!-- Action buttons -->
-                <div class="mt-4 flex justify-between items-center">
-                    <a href="{{ route('blogs.edit', $blog->id) }}" 
-                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
-                        Edit
-                    </a>
+                @if(auth()->check() && auth()->id() === $blog->user_id)
+    <div class="mt-4 flex justify-between items-center">
+        <a href="{{ route('blogs.edit', $blog->id) }}" 
+           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+            Edit
+        </a>
 
-                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
-                            Delete
-                        </button>
-                    </form>
-                </div>
+        <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                Delete
+            </button>
+        </form>
+    </div>
+@endif
+
             </div>
         @empty
             <p class="col-span-3 text-center text-gray-500">No posts found.</p>

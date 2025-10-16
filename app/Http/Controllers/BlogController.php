@@ -23,6 +23,9 @@ class BlogController extends Controller
     // show form to edit a post
     public function edit($id){
         $blog = Blog::findOrFail($id);
+        if($blog->user_id !== auth()->id()) {
+        abort(403);
+        }
         return view('blogs.edit', compact('blog'));
     }
 
@@ -40,6 +43,7 @@ class BlogController extends Controller
         $blog->title = $validated['title'];
         $blog->content = $validated['content'];
         $blog->category = $validated['category'] ?? null;
+        $blog->user_id = auth()->id();
         if($request->hasFile('image')){
             // delete old image if exists
             if($blog->image_path){

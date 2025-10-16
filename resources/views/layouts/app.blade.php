@@ -8,17 +8,31 @@
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
     <!-- Navbar -->
-    <nav class="bg-white shadow">
-        <div class="container mx-auto flex justify-between items-center p-4">
-            <a href="{{ url('/') }}" class="text-xl font-semibold text-blue-600">MyBlog</a>
+  <!-- Navbar -->
+<nav class="bg-white shadow">
+    <div class="container mx-auto flex justify-between items-center p-4">
+        <a href="{{ url('/') }}" class="text-xl font-semibold text-blue-600">MyBlog</a>
 
-            <div class="space-x-4">
-                <a href="{{ route('blogs.index') }}" class="hover:text-blue-600">Posts</a>
+        <div class="space-x-4">
+            <a href="{{ route('blogs.index') }}" class="hover:text-blue-600">Posts</a>
+
+            @auth
+                <!-- Show when user is logged in -->
                 <a href="{{ route('blogs.create') }}" class="hover:text-blue-600">New Post</a>
+                <span class="text-gray-700">Hello, {{ auth()->user()->name }}</span>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="hover:text-red-600">Logout</button>
+                </form>
+            @else
+                <!-- Show when guest -->
                 <a href="{{ route('login') }}" class="hover:text-blue-600">Login</a>
-            </div>
+                <a href="{{ route('register') }}" class="hover:text-blue-600">Register</a>
+            @endauth
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto p-6">

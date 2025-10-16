@@ -5,7 +5,7 @@
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-2xl p-8">
     <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">🔑 Login</h1>
 
-    <form action="#" method="POST" class="space-y-6">
+    <form action="{{ route('login') }}" method="POST" class="space-y-6">
         @csrf
 
         <!-- Email -->
@@ -35,7 +35,7 @@
         <!-- Remember Me -->
         <div class="flex items-center justify-between">
             <label class="flex items-center">
-                <input type="checkbox" class="mr-2">
+                <input type="checkbox" name="remember" class="mr-2">
                 <span class="text-gray-600 text-sm">Remember me</span>
             </label>
             <a href="#" class="text-blue-600 text-sm hover:underline">Forgot password?</a>

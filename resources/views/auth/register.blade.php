@@ -5,7 +5,7 @@
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-2xl p-8">
     <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">📝 Create Account</h1>
 
-    <form action="#" method="POST" class="space-y-6">
+    <form action="{{ route('register') }}" method="POST" class="space-y-6">
         @csrf
 
         <!-- Name -->
