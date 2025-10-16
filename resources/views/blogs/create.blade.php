@@ -4,7 +4,7 @@
 <div class="max-w-3xl mx-auto bg-white shadow rounded-2xl p-8 mt-8">
     <h1 class="text-3xl font-semibold text-gray-800 mb-6">✍️ Create a New Post</h1>
 
-    <form action="" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
         <!-- Title -->
